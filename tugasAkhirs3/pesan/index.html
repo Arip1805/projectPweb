@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arip - PESAN PAGE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous"> 
+    <script>
+        function hitungTotal() {
+            const tipeKamar = document.getElementById('tipeKamar').value;
+            const durasiMenginap = parseInt(document.getElementById('durasiMenginap').value) || 0;
+            const breakfast = document.getElementById('breakfast').checked;
+
+            let hargaPerMalam;
+
+            switch (tipeKamar) {
+                case 'standar':
+                    hargaPerMalam = 300000;
+                    break;
+                case 'deluxe':
+                    hargaPerMalam = 500000;
+                    break;
+                case 'family':
+                    hargaPerMalam = 700000;
+                    break;
+                default:
+                    hargaPerMalam = 0;
+            }
+
+            let total = hargaPerMalam * durasiMenginap;
+            if (durasiMenginap > 3) {
+                total *= 0.9; // Diskon 10%
+            }
+            if (breakfast) {
+                total += 80000; // Tambahan untuk breakfast
+            }
+
+            document.getElementById('totalBayar').value = total;
+        }
+
+        function validasiForm(event) {
+            const nomorIdentitas = document.getElementById('nomorIdentitas').value;
+            if (nomorIdentitas.length !== 16 || isNaN(nomorIdentitas)) {
+                event.preventDefault();
+                alert('Isian salah, nomor identitas harus 16 digit angka.');
+                return false;
+            }
+        }
+    </script>
+</head>
+<body>
+     <!--nav section start-->
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-lg fixed-top">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">ZYN HOTEL</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse text-right" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#about">About</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Other
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/kamar">Jenis Kamar</a></li>
+                  <li><a class="dropdown-item" href="/fasilitas">Fasilitas</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/pesan">Pemesanan Kamar</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+              <button class="btn btn-outline-light" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <!--nav section end-->
+
+    <!-- Form Pemesanan -->
+    <div class="container mt-5 pt-5">
+        <h2 class="text-center mb-4">Form Pemesanan Kamar</h2>
+        <form action="/submit_pesanan" method="post" onsubmit="validasiForm(event)">
+            <div class="mb-3">
+                <label for="nama" class="form-label">Nama Pemesan</label>
+                <input type="text" class="form-control" id="nama" name="nama" placeholder="Masukkan nama lengkap" required>
+            </div>
+            <div class="mb-3">
+                <label for="jenisKelamin" class="form-label">Jenis Kelamin</label>
+                <select class="form-select" id="jenisKelamin" name="jenisKelamin" required>
+                    <option value="" disabled selected>Pilih jenis kelamin</option>
+                    <option value="laki-laki">Laki-Laki</option>
+                    <option value="perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="nomorIdentitas" class="form-label">Nomor Identitas</label>
+                <input type="text" class="form-control" id="nomorIdentitas" name="nomorIdentitas" placeholder="Masukkan nomor identitas 16 digit" required>
+            </div>
+            <div class="mb-3">
+                <label for="tipeKamar" class="form-label">Tipe Kamar</label>
+                <select class="form-select" id="tipeKamar" name="tipeKamar" onchange="hitungTotal()" required>
+                    <option value="" disabled selected>Pilih tipe kamar</option>
+                    <option value="standar">Standar</option>
+                    <option value="deluxe">Deluxe</option>
+                    <option value="family">Family</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="tanggalPesan" class="form-label">Tanggal Pesan</label>
+                <input type="date" class="form-control" id="tanggalPesan" name="tanggalPesan" required>
+            </div>
+            <div class="mb-3">
+                <label for="durasiMenginap" class="form-label">Durasi Menginap (Hari)</label>
+                <input type="number" class="form-control" id="durasiMenginap" name="durasiMenginap" placeholder="Masukkan durasi menginap" onchange="hitungTotal()" required>
+            </div>
+            <div class="form-check mb-3">
+                <input class="form-check-input" type="checkbox" id="breakfast" name="breakfast" onchange="hitungTotal()">
+                <label class="form-check-label" for="breakfast">Termasuk Breakfast</label>
+            </div>
+            <div class="mb-3">
+                <label for="totalBayar" class="form-label">Total Bayar</label>
+                <input type="text" class="form-control" id="totalBayar" name="totalBayar" readonly>
+            </div>
+           <!-- Simpan button -->
+            <div class="container text-center mt-5">
+            <button id="btnSimpan" type="button" class="btn btn-success btn-lg">
+            Simpan
+            </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="position-fixed bottom-0 end-0 p-3" style="z-index: 11">
+        <div id="pesananToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+            <div class="toast-header">
+                <strong class="me-auto">Notifikasi</strong>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+            </div>
+            <div class="toast-body">
+                Pesanan telah berhasil disimpan!
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('btnSimpan').addEventListener('click', function() {
+            var toast = new bootstrap.Toast(document.getElementById('pesananToast'));
+            toast.show();
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
+</body>
+</html>

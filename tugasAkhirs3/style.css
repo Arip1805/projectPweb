@@ -1,0 +1,59 @@
+body {
+    background-color: #0f0e17;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+.banner {
+    background: url("/img/background\ welcome.jpg") no-repeat center center;
+     background-size: cover;
+     padding-top: 20%;
+     padding-bottom: 20%;
+     color: #f5f5f5;
+}
+
+.banner h3 {
+    font-size: 4rem;
+    font-weight: bold; /* Teks akan menjadi tebal */
+    color: #0f0e17;
+}
+
+.banner h4 {
+    font-size: 2rem;
+    color: #0f0e17;
+}
+.about-image {
+    max-width: 30%; /* Atur ukuran maksimal gambar menjadi 30% dari lebar kontainer */
+    height: auto; /* Proporsi gambar tetap */
+    margin-top: 20px; /* Jarak atas gambar */
+    border-radius: 10px; /* Tambahkan efek rounded */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan efek bayangan */
+}
+/* Mengatur warna font untuk elemen <h3> */
+#about {
+    color: #fffffe; /* Warna oranye untuk teks "About" */
+    font-weight: bold; /* Menambahkan teks tebal */
+}
+
+/* Mengatur warna font untuk elemen <p> */
+.container p {
+    color: #fff3ec; /* Warna hijau untuk paragraf */
+}
+.crop-img {
+    object-fit: cover;
+}
+
+/* Mengubah warna tombol */
+.btn-custom {
+    background-color: #ff8906; /* Warna biru */
+    color: white; /* Warna teks */
+    border: none; /* Hilangkan border */
+    padding: 10px 20px; /* Sesuaikan padding */
+    font-size: 1.2rem; /* Ukuran teks */
+    border-radius: 5px; /* Sudut melengkung */
+    transition: background-color 0.3s ease; /* Efek transisi */
+}
+
+/* Efek hover pada tombol */
+.btn-custom:hover {
+    background-color: #ff8906; /* Warna biru lebih gelap */
+    color: #fff; /* Warna teks tetap putih */
+}
